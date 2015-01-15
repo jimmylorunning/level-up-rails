@@ -1,0 +1,3 @@
+== Level UP Rails -- my answers / progress
+
+This is just a place for me to store my answers to the {Level UP Rails}[https://leveluprails.com/] courses that I am taking, and also write down notes about each lesson. To read more about what I'm learning, go to {jimmylocoding.com}[http://jimmylocoding.com]

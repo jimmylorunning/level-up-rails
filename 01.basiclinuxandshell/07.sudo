@@ -1,0 +1,8 @@
+1.
+	any command that installs anything major... or requires access to folders outside of the home folder
+
+2.
+	Especially dangerous on shared systems (i.e. not your own computer).
+
+	Running Firefox as an unprivileged user is a million times safer than running it as root, largely because those programs interact with untrusted data all the time. http://www.techrepublic.com/blog/linux-and-open-source/setting-the-record-straight-on-sudo/
+

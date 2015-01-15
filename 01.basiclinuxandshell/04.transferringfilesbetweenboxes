@@ -1,0 +1,7 @@
+1. touch jimmylo.txt
+   scp jimmylo.txt myacct@myserver.org:/home/myacct/
+
+2. rm jimmylo.txt
+   scp myacct@myserver.org:/home/myacct/jimmylo.txt .
+
+   (don't forget the dot!)

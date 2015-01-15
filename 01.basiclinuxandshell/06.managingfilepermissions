@@ -1,0 +1,11 @@
+1. touch newfile
+	ls -la
+	by default my new file is universally readable, but writable by user/owner only (jimmylo)
+
+2. chown root newfile
+	"operation not permitted" :(
+
+3. Read = 4; Write = 2; Execute = 1
+	chmod 555 newfile (sets Read & Execute (4 + 1) for users/group/other)
+
+4. chmod g-w newfile

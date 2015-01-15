@@ -1,0 +1,14 @@
+1.
+	relative:
+	cd mydir/mysubdir
+	cd ..
+
+	absolute:
+	cd /something/something_else
+
+2.
+	cd ~
+	ls -la
+
+3.
+	cd ../..

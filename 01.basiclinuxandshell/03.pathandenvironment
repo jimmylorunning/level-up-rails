@@ -1,0 +1,33 @@
+http://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_02.html
+
+global variables (aka environment variables) are available in ALL shells, whereas local variables are only available in the current shell.
+
+global variables: type env or printenv to list them
+local variables: type set to list them
+
+creating LOCAL variables:
+	"child processes of the current shell will not be aware of this variable."
+	type: VARNAME="value" (no spaces)
+	printing them back out: echo $VARNAME
+
+creating ENVIRONMENT variables.
+	In order to pass variables to a subshell, we need to export them.	Variables that are exported are referred to as environment variables.
+	type: export VARNAME="value"
+
+exercises:
+1. env | grep "EDITOR"
+	(no output, b/c it was not set)
+
+	read: http://www.linuxfromscratch.org/blfs/view/6.3/postlfs/profile.html
+
+	"An interactive non-login shell is also started with a terminal program such as xterm or konsole from within a graphical environment. This type of shell invocation normally copies the parent environment and then reads the user's ~/.bashrc file for additional startup configuration instructions."
+
+	added export EDITOR="subl"
+	opened up terminal again and typed echo $EDITOR
+	but it's blank/not working???
+
+	If I type it directly into the command line, it works... just .bashrc doesn't seem to be working
+
+2. echo $PATH
+
+3. echo $IRBRC

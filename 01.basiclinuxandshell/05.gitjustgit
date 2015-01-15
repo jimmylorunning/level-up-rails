@@ -1,0 +1,22 @@
+A successful git branching model:
+http://nvie.com/posts/a-successful-git-branching-model/
+
+centralized but decentralized:
+	there's a central repo (origin)
+	then subteams, which just means that people on a subteam declare each other as a remote and can fetch changes from each other
+
+2 main branches:
+	two main branches with infinite timeline
+		1. master
+		2. develop - merged back into master when ready for release
+
+supporting branches:
+	have limited life time
+	Each of these branches have a specific purpose and are bound to strict rules as to which branches may be their originating branch and which branches must be their merge targets.
+	types:
+		1. feature branches - branches off of develop and merges into develop
+		2. release branches - branches off from develop, merge back into develop and master
+		3. hotfix branches - branches off from master, merges back into develop and master
+
+"The merge --no-ff flag causes the merge to always create a new commit object, even if the merge could be performed with a fast-forward. This avoids losing information about the historical existence..."
+
