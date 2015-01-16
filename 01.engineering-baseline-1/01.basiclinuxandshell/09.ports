@@ -1,0 +1,39 @@
+The protocols that primarily use ports are the Transport Layer protocols, such as the Transmission Control Protocol (TCP) and the User Datagram Protocol (UDP) of the Internet Protocol Suite.
+
+UDP is suitable for purposes where error checking and correction is either not necessary or is performed in the application, avoiding the overhead of such processing at the network interface level.
+
+If error correction facilities are needed at the network interface level, an application may use the Transmission Control Protocol (TCP) or Stream Control Transmission Protocol (SCTP) which are designed for this purpose.
+
+A port is a software structure that is identified by the port number, a 16 bit integer value, allowing for port numbers between 0 and 65535. Port 0 is reserved, but is a permissible source port value if the sending process does not expect messages in response.
+
+The Internet Assigned Numbers Authority (IANA) has divided port numbers into three ranges.
+	1. Port numbers 0 through 1023 are used for common, well-known services. On Unix-like operating systems, using one of these ports requires superuser operating permission.
+	2. Port numbers 1024 through 49151 are the registered ports used for IANA-registered services.
+	3. Ports 49152 through 65535 are dynamic ports that are not officially designated for any specific service, and may be used for any purpose. They also are used as ephemeral ports, from which software running on the host may randomly choose a port in order to define itself. In effect, they are used as temporary ports primarily by clients when communicating with servers.
+
+Common port numbers:
+
+	20 & 21: File Transfer Protocol (FTP)
+	22: Secure Shell (SSH, SFTP, SCP)
+	23: Telnet remote login service
+	25: Simple Mail Transfer Protocol (SMTP)
+	53: Domain Name System (DNS) service
+	80: Hypertext Transfer Protocol (HTTP) used in the World Wide Web
+	110: Post Office Protocol (POP3)
+	119: Network News Transfer Protocol (NNTP)
+	143: Internet Message Access Protocol (IMAP)
+	161: Simple Network Management Protocol (SNMP)
+	194: Internet Relay Chat (IRC)
+	443: HTTP Secure (HTTPS)
+	465: SMTP Secure (SMTPS)
+	5432: Postgres
+
+	for a more complete list: http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
+
+---
+
+Finding ports:
+
+netstat &
+using netstat: http://www.thegeekstuff.com/2010/03/netstat-command-examples/
+

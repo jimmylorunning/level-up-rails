@@ -1,0 +1,77 @@
+reading the du tutorial, I find this combination of options to be the most useful:
+
+du -sh *
+
+(summarize & human readable, the * performs the command on all the directories directly under the current directory)
+
+du -hd 1 also does the same thing ("d 1" means max depth 1)
+
+the -c option is useful too. du -hc *.gif will only calculate the disk usage of gifs
+
+---
+
+df = disk free = can only show the space consumption on entire partitions = du is not designed to show the space consumption of partitions. = on a typical installation some filesystems will be physically located on different partitions (i.e., a logically independent section of a hard disk drive) or on other storage devices such as a CDROM, floppy disk or a USB (universal serial bus) key drive, or even on another computer located elsewhere on a network
+
+$ df /
+Filesystem   512-blocks      Used Available Capacity  Mounted on
+/dev/disk0s2  976101344 942234128  33355216    97%    /
+
+$ df -h /
+Filesystem     Size   Used  Avail Capacity  Mounted on
+/dev/disk0s2  465Gi  449Gi   16Gi    97%    /
+
+---
+
+top - included with most linux systems
+htop - not included, must install
+htop for osx - http://themainframe.ca/2011/06/install-htop-on-mac-os-x/
+
+installed!
+
+---
+
+reading load averages
+
+important parts from wikipedia:
+
+$ uptime
+ 14:34:03 up 10:43,  4 users,  load average: 0.06, 0.11, 0.09
+
+An idle computer has a load number of 0. Each process using or waiting for CPU (the ready queue or run queue) increments the load number by 1.
+
+Systems calculate the load average as the exponentially damped/weighted moving average of the load number. The three values of load average refer to the past one, five, and fifteen minutes of system operation.
+
+For single-CPU systems that are CPU bound, one can think of load average as a percentage of system utilization during the respective time period. For systems with multiple CPUs, one must divide the number by the number of processors in order to get a comparable percentage.
+
+For example, one can interpret a load average of "1.73 0.60 7.98" on a single-CPU system as:
+
+during the last minute, the system was overloaded by 73% on average (1.73 runnable processes, so that 0.73 processes had to wait for a turn for a single CPU system on average).
+during the last 5 minutes, the CPU was idling 40% of the time on average.
+during the last 15 minutes, the system was overloaded 698% on average (7.98 runnable processes, so that 6.98 processes had to wait for a turn for a single CPU system on average).
+
+---
+
+exercises:
+
+1.
+
+	$ df -h /
+	Filesystem     Size   Used  Avail Capacity  Mounted on
+	/dev/disk0s2  465Gi  449Gi   16Gi    97%    /
+
+	remaining space: 16 gigs
+
+2.
+
+	$ cd ~
+	$ du -hs *
+	540K	Applications
+	154G	Desktop
+	 16G	Documents
+	8.2G	Downloads
+	... etc.
+
+3.
+
+	$ htop
+

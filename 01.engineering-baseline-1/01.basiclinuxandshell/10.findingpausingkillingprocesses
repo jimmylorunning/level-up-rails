@@ -1,0 +1,91 @@
+Finding, pausing, killing processes
+
+$ ps
+  PID TTY           TIME CMD
+  623 ttys000    0:00.42 -bash
+ 1093 ttys001    0:00.35 -bash
+
+-e for all processes
+
+ $ ps -e
+   PID TTY           TIME CMD
+    1 ??         0:09.31 /sbin/launchd
+   10 ??         0:00.93 /usr/libexec/kextd
+   11 ??         0:00.32 /usr/sbin/notifyd
+   etc.
+
+- u for showing only processes with specific user/owner
+
+ $ ps -u jimmylo
+
+Parent processes:
+
+	Each process will be assigned with the unique Process ID (PID).
+
+	When you launch some application, it might fork number of processes and each sub process will have its own PID. So, each process will have its own process id and parent processid.
+
+	For all the processes that a process forks will have the same PPID (parent process identifier).
+
+	$ ps -f --ppid 9576
+	(can't get this to work...)
+
+Forest:
+
+	This didn't work either
+
+	$ ps -e -o pid,args --forest
+	  468  \_ sshd: root@pts/7
+	  514  |   \_ -bash
+	17484  \_ sshd: root@pts/11
+	17513  |   \_ -bash
+	24004  |       \_ vi ./790310__11117/journal
+	15513  \_ sshd: root@pts/1
+	15522  |   \_ -bash
+	 4280  \_ sshd: root@pts/5
+	 4302  |   \_ -bash
+
+Finding memory Leak (ps –sort pmem)
+
+	A memory leak, technically, is an ever-increasing usage of memory by an application.
+
+	With common desktop applications, this may go unnoticed, because a process typically frees any memory it has used when you close the application.
+
+	However, In the client/server model, memory leakage is a serious issue, because applications are expected to be available 24×7. Applications must not continue to increase their memory usage indefinitely, because this can cause serious issues. To monitor such memory leaks, we can use the following commands.
+
+Background jobs
+
+http://www.thegeekstuff.com/2010/05/unix-background-job/
+
+	1. Execute a job in the bg by adding & at the end:
+
+		# find / -ctime -1 > /tmp/changed-file-list.txt &
+
+	2. Send the current foreground job to the background using CTRL-Z and 'bg' command
+
+	3. View all the background jobs using jobs command
+	4. Taking a job from the background to the foreground using fg command. When executed without arguments, it will take the most recent background job to the foreground.
+	5. Kill a specific background job using kill %job-number (example: kill %2)
+
+----
+
+$ ruby -e 'sleep 1 while true'
+^C-e:1:in `sleep': Interrupt
+	from -e:1:in `<main>'
+
+jimmylo at Jimmy-Los-MacBook in ~
+$ ruby -e 'sleep 1 while true' &
+[1] 2760
+jimmylo at Jimmy-Los-MacBook in ~
+$ fg
+ruby -e 'sleep 1 while true'
+^Z
+[1]+  Stopped                 ruby -e 'sleep 1 while true'
+jimmylo at Jimmy-Los-MacBook in ~
+$ bg
+[1]+ ruby -e 'sleep 1 while true' &
+jimmylo at Jimmy-Los-MacBook in ~
+$ bg
+-bash: bg: job 1 already in background
+$ kill %1
+[1]+  Terminated              ruby -e 'sleep 1 while true'
+
