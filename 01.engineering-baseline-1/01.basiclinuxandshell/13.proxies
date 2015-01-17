@@ -1,0 +1,20 @@
+https://medium.com/@jmmastey/proxies-and-you-2846c5fc0c7b
+
+Problem: single points of failure (SPoF)
+
+Puma, A Ruby Web Server Built For Concurrency - https://github.com/puma/puma
+
+"What we’d really like to do here is to set up several pumas to work in unison, and in fact we can. Frameworks like Rails often include tools (like foreman) to do just that."
+
+"Since we can only listen for requests at one address, though, we’ll add another webserver (nginx in this case) “in front of” those pumas to distribute requests."
+
+"Getting More Out of Our Machines" -- this section was not completely clear to me, may need to re-read it again later.
+
+1.
+	I drew a picture in my notebook
+
+2.
+	to avoid single points of failures = increase reliability
+	to distribute load among different machines = increase speed
+	to filter out illegal requests = increase security
+

@@ -1,0 +1,10 @@
+http://www.oreilly.com/openbook/debian/book/ch07_03.html
+
+1. my VM does not have ssh installed so I restarted atd instead
+
+	cd /etc/init.d/
+	atd stop
+	atd start
+
+2. i think what it means by invoking the init script here is that when you go to /etc/init.d/ all the files in this folder are all init scripts for different services. so if I actually had access to a server configured like theirs, I would do ls and find the nginx init script file (probably called nginx) and then I'd simply run it on the command line without arguments to see valid choices. then read the instructions and figure out what the correct argument would be to load the config without stopping the server.
+
