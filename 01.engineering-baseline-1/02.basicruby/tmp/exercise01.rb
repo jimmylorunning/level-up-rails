@@ -1,0 +1,1 @@
+puts 'hello world'.tr('lo', 'pq')

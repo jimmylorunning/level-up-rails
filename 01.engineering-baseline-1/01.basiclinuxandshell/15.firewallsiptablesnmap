@@ -1,0 +1,163 @@
+FIREWALLS AND IPTABLES
+
+All modern Linux systems use iptables to manage traffic
+
+The iptables link provided by Level UP is kind of badly written.
+
+I found this one instead:
+
+http://www.howtogeek.com/177621/the-beginners-guide-to-iptables-the-linux-firewall/
+
+	"iptables is a command-line firewall utility that uses policy chains to allow or block traffic."
+
+	"iptables uses three different chains: input, forward, and output."
+
+	input: This chain is used to control the behavior for incoming connections. For example, if a user attempts to SSH into your PC/server, iptables will attempt to match the IP address and port to a rule in the input chain.
+
+	Forward – This chain is used for incoming connections that aren’t actually being delivered locally. Think of a router – data is always being sent to it but rarely actually destined for the router itself; the data is just forwarded to its target. Unless you’re doing some kind of routing, NATing, or something else on your system that requires forwarding, you won’t even use this chain.
+
+	Output – This chain is used for outgoing connections. For example, if you try to ping howtogeek.com, iptables will check its output chain to see what the rules are regarding ping and howtogeek.com before making a decision to allow or deny the connection attempt.
+
+	The caveat
+
+	Even though pinging an external host seems like something that would only need to traverse the output chain, keep in mind that to return the data, the input chain will be used as well. When using iptables to lock down your system, remember that a lot of protocols will require two-way communication, so both the input and output chains will need to be configured properly. SSH is a common protocol that people forget to allow on both chains.
+
+	To see what your policy chains are currently configured to do with unmatched traffic, run the iptables -L command.
+
+	The commands to accept by default:
+		iptables --policy INPUT ACCEPT
+		iptables --policy OUTPUT ACCEPT
+		iptables --policy FORWARD ACCEPT
+
+	To not accept by default:
+		iptables --policy INPUT DROP
+		iptables --policy OUTPUT DROP
+		iptables --policy FORWARD DROP
+
+	 Add rules to the iptable so it knows what to do when it encounters a connection from or to a particular IP address or port. 3 of the most basic and commonly used “responses” are...
+
+	 	accept - allow connection
+	 	drop - Drop the connection, act like it never happened. This is best if you don’t want the source to realize your system exists.
+	 	reject - Don’t allow the connection, but send back an error. This is best if you don’t want a particular source to connect to your system, but you want them to know that your firewall blocked them.
+
+	To drop a specific IP address:
+
+		iptables -A INPUT -s 10.10.10.10 -j DROP
+
+			-A : append the rule to existing chain
+
+	The changes that you make to your iptables rules will be scrapped the next time that the iptables service gets restarted unless you execute a command to save the changes.This command can differ depending on your distribution.
+
+Exercise:
+
+1.
+	sudo iptables -L
+
+2.
+	whitelist means everything is blocked by default. you only allow connections that you know are okay. this is better than the opposite approach because you never know which IP addressses will be malicious, so with a whitelist approach you are assuming they are malicious unless otherwise specified.
+
+
+NMAP
+
+Sometimes, it's not clear whether or not the firewall is blocking your traffic. From the host itself, the port may appear to be open, but requests are not being served properly. In this case, a good tool for "sniffing out" the misbehaving machine is nmap. You can use nmap to scan the machine and display a report of all ports that are open and listening. Find out more about nmap: https://www.digitalocean.com/community/articles/how-to-use-nmap-to-scan-for-open-ports-on-your-vps
+
+	"There are many layers in the OSI networking model. The transport layer is the layer primarily concerned with the communication between different services and applications."
+
+	TERMS:
+
+		OSI networking model: (from wikipedia) The Open Systems Interconnection model (OSI) is a conceptual model that characterizes and standardizes the internal functions of a communication system by partitioning it into abstraction layers.
+
+		Port: An addressable network location implemented inside of the operating system that helps distinguish traffic destined for different applications or services.
+		(in my own words -- a designated address for certain types of communication... trying to think of the metaphor of an actual port for ships... maybe there's a port for sailboats and a port for ferries and a port for commercial ships... so in networking, there are ports for different types of traffic: http, ftp, ssh, etc.)
+
+		Internet Sockets: A file descriptor that specifies an IP address and an associated port number, as well as the transfer protocol that will be used to handle the data.
+		(imow -- so a socket is like a combination of an IP address + port + transfer protocol)
+
+		Binding: The process that takes place when an application or service uses an internet socket to handle the data it is inputting and outputting.
+
+		Listening: A service is said to be "listening" on a port when it is binding to a port/protocol/IP address combination in order to wait for requests from clients of the service. Upon receiving a request, it then establishes a connection with the client (when appropriate) using the same port it has been listening on. Because the internet sockets used are associated with a specific client IP address, this does not prevent the server from listening for and serving requests to other clients simultaneously.
+		(imow -- like a guy who works at the port keeping an eye out for boats who want to dock and if they want to dock he will wave them in)
+
+		Port Scanning: Port scanning is the process of attempting to connect to a number of sequential ports, for the purpose of acquiring information about which are open and what services and operating system are behind them.
+		(imow -- like a captain of a ship using his binoculars to scan the ports to see which one he can dock at?)
+
+	COMMON PORTS:
+
+		Many ports below 1024 are associated with services that Linux and Unix-like operating systems consider critical to essential network functions, so you must have root privileges to assign services to them.
+
+		Ports between 1024 and 49151 are considered "registered". This means that they can be "reserved" (in a very loose sense of the word) for certain services by issuing a request to the IANA (Internet Assigned Numbers Authority). They are not strictly enforced, but they can give a clue as to the possible services running on a certain port.
+
+		Ports between 49152 and 65535 cannot be registered and are suggested for private use.
+
+			20:	FTP data
+			21: FTP control port
+			22: SSH
+			23: Telnet <= Insecure, not recommended for most uses
+			25: SMTP
+			43: WHOIS protocol
+			53: DNS services
+			67: DHCP server port
+			68: DHCP client port
+			80: HTTP traffic <= Normal web traffic
+			110: POP3 mail port
+			113: Ident authentication services on IRC networks
+			143: IMAP mail port
+			161: SNMP
+			194: IRC
+			389: LDAP port
+			443: HTTPS <= Secure web traffic
+			587: SMTP <= message submission port
+			631: CUPS printing daemon port
+			666: DOOM <= This legacy FPS game actually has its own special port
+
+	HOW TO GET A LIST OF COMMON PORTS:
+
+		less /etc/services
+
+	HOW TO SCAN FOR YOUR OWN OPEN PORTS:
+
+		sudo netstat -plunt
+
+	NMAP
+
+		Part of securing a network involves doing vulnerability testing. This means trying to infiltrate your network and discover weaknesses in the same way that an attacker might.
+
+		Out of all of the available tools for this, nmap is perhaps the most common and powerful.
+
+		You can install nmap on an Ubuntu or Debian machine by entering:
+
+			sudo apt-get update
+			sudo apt-get install nmap
+
+		(I used brew update / brew install nmap instead b/c I'm on OS X)
+
+		One of the side benefits of installing this software is an improved port mapping file. You can see a much more extensive association between ports and services by looking in this file:
+
+			less /usr/share/nmap/nmap-services
+
+
+	SCANNING PORTS WITH NMAP
+
+		Nmap can reveal a lot of information about a host. It can also make system administrators of the target system think that someone has malicious intent. For this reason, only test it on servers that you own or in situations where you've notified the owners.
+
+		The nmap creators actually provide a test server located at:
+
+		scanme.nmap.org
+
+		This, or your own VPS instances are good targets for practicing nmap.
+
+Exercise:
+
+	$ nmap scanme.nmap.org
+
+	Starting Nmap 6.47 ( http://nmap.org ) at 2015-01-18 13:28 EST
+	Nmap scan report for scanme.nmap.org (74.207.244.221)
+	Host is up (0.085s latency).
+	Not shown: 994 closed ports
+	PORT     STATE    SERVICE
+	22/tcp   open     ssh
+	80/tcp   open     http
+	135/tcp  filtered msrpc
+	139/tcp  filtered netbios-ssn
+	445/tcp  filtered microsoft-ds
+	9929/tcp open     nping-echo
