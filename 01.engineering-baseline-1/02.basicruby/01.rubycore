@@ -8,5 +8,22 @@ Exercises
 2a.
 	see /level_up_exercises/dino_catalog
 
+# example usage: 
+#  load 'dinosaurs.rb'
+#  d = Dinosaur.new('one.csv', 'two.csv')
+#  d.read_from_file('three.csv')
+#  d.bipeds
+#  d.carnivores
+#  d.from_triassic
+#  d.big
+#  d.from_jurassic.carnivores.bipeds 
+#  d.print
+#  d.big.print
+#  Extra Credit #1:
+#    d.where(walking: 'Quadruped', continent: 'North America').print
+#    d.where(walking: 'Quadruped').where(continent: 'North America').print
+#  Extra Credit #2:
+#    d.carnivores.big.json
+
 2b.
 	see http://exercism.io/jimmylorunning
