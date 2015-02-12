@@ -1,0 +1,21 @@
+instructions mentions a "popular Ruby Style Guide" but there was no link. I googled ruby style guide and got this: https://github.com/bbatsov/ruby-style-guide so I assume it's the one he's referring to since it's result #1 and he said popular.
+
+Develops according to the github style guide:
+
+	I read through the styleguide but it's hard to keep all of them in my head so I just used the rubocop gem -- what a time saver! I can still look it up to figure out how to fix each thing and why, but I don't have to keep all the rules in my head as I write code. I imagine I'll start internalizing them if I use rubocop consistently.
+
+Puts errors near their test conditions (no arrowhead programming)
+
+	The arrowhead exercise was fun. I first wrote tests to cover all the cases. Then I refactored it, taking out the nested conditionals and used a method in the beginning as a guard-clause-like thing to catch all errors before doing the logic part. As for my own dinosaurs.rb code, I didn't have any code that was nested more than one level.
+
+Creates short methods and short lines of code
+
+	Robot was a fun class. I was especially proud of refactoring it so that it didn't have the if/else to run different generators based on if one was passed in or not. Instead, I just used @generator = argument || ->{my_default_name_generator} then just used @generator.call.  My dinosaurs.rb also did not have any long methods or lines longer than 80 characters, so I didn't have to refactor there.
+
+Meaningful names for variables / methods / etc
+
+	My dino_catalog already had meaningful names.
+
+Knows what the five second rule for code review is
+
+	I know what it is, but I'm not sure my code passes. I'd love a code review by someone other than me.
