@@ -1,0 +1,11 @@
+
+Knows why comments lie...
+
+1 comments lie: because they become outdated really quickly. someone will go in and change the code and forget to change the comment, and suddenly your comment is lying about what the code is supposed to do.
+
+2. We explain code adequately to others by: having descriptive and illuminating class, method, and variable names. And having tests that show what the code is supposed to do.  
+3. Self documenting code, in my own words, is code that makes its intention known and obvious. Code that is self documenting in this way needs no documentation because reading the code itself is as easy (and much more accurate) than reading the documentation.
+
+Knows where comments are necessary...
+
+1. They're necessary in places where why you're writing something this way is not immediately apparent, and there is no way to make it apparent in the code or tests. They're also necessary sometimes when dealing with other's code, to explain why you're calling something a certain way, because of quirks in that code or library.
