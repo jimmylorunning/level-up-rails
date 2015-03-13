@@ -1,0 +1,49 @@
+The Testing Mindset
+
+Exercise: Knows why we "don't trust the developer"
+
+1. Some reasons why you shouldn't trust the person who wrote the code
+  * the person who wrote the code may not understand the requirements
+  * he/she may have operated under certain assumptions that are not always true
+  * he/she may be incompetent
+  * he/she may not have thought of all possible scenarios under which the software may be run
+  * he/she may not understand how a user actually uses the software
+  * he/she may have been satisfied that it worked on their local machine but that doesn't mean it will work for anyone else
+  * the product may work but still be hard to use/ugly/badly designed
+  * he/she may have blindspots when viewing their work because they are so invested in it, they're too close to see the big picture
+
+2. Mental pitfalls to watch out for when testing
+  * assuming user's behavior will be ideal
+  * assuming user knows how to use the product
+  * assuming software will run under the same or similar conditions every time
+  * thinking you know what the customer wants without asking/observing them
+  * testing only happy paths or paths that you think are desirable
+  * writing tests that test for the wrong thing
+  * writing tests that re-inforces whatever your program does without testing it against what it should do
+
+3. Why shouldn't we be satisfied with testing our own code?
+  * we assume too much
+  * we are limited by our experience as developers instead of users
+  * we are too optimistic
+  * we want our code to work, which can affect how and what we test for
+
+Exercise: Explain Red / Green / Refactor works and how it creates better code over time:
+
+  * experiment and formulate a plan
+  * write some tests to reveal what you WANT to happen
+  * run the tests, they will fail (so, RED)
+  * write the code so that it passes
+  * run the tests, revise code until tests pass (so, GREEN)
+  * refactor code for performance, readability, flexibility, beauty, or whatever
+  * run the tests again, if they fail, then refactor until they pass
+
+Red/Green/Refactor creates better code over time because:
+  * maintainers who will have to look at your code later will see exactly what it is supposed to do, i.e. tests are a way of documenting your intentions
+  * if anyone wants to change or add to the code, they will have a way to easily check if what they added broke some existing functionality or not by running the tests
+  * you don't have to keep everything in your head at the same time. if you write a test for it, you can forget about it for now, and focus on the one part you are working on
+  * R/G/R encourages you to continually improve your code even after you get it passing green
+  * R/G/R also encourages you to write testable code, which means code broken up into units that are very easily predictable in terms of inputs and outputs
+
+Exercise: Understands TDD and BDD
+1. - see Data Science exercise
+2. - see Overlord exercise
